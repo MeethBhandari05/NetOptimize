@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLBO Algorithm Input</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>  
+
+    <div class="bento-container">
+        <h2>TLBO Algorithm Input</h2>
+        
+        <form id="tlbo-form" method="POST" action="{% url 'submit_tlbo' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="bento-grid">
+                <div class="bento-item">
+                    <label for="gridSize" >Grid Size:</label>
+                    <input type="number" id="gridSize" name="grid_size" required>
+                </div>
+                <div class="bento-item">
+                    <label for="sensorRadius">Sensor Radius:</label>
+                    <input type="number" id="sensorRadius" name="sensor_radius" required>
+                </div>
+                <div class="bento-item">
+                    <label for="numSensors">Number of Sensors:</label>
+                    <input type="number" id="numSensors" name="num_sensors" required>
+                </div>
+                <div class="bento-item">
+                    <label for="numTargets">Number of Targets:</label>
+                    <input type="number" id="numTargets" name="num_targets" required>
+                </div>
+                <div class="bento-item">
+                    <label for="initialPower">Initial Power:</label>
+                    <input type="number" id="initialPower" name="initial_power" required>
+                </div>
+                <div class="bento-item">
+                    <label for="qjCoverage">Qj (K Coverage):</label>
+                    <input type="number" id="qjCoverage" name="qj_coverage" required>
+                </div>
+                <div class="bento-item">
+                    <label for="energyRate">Energy Consumption Rate:</label>
+                    <input type="number" id="energyRate" name="energy_rate" required>
+                </div>
+                <div class="bento-item upload">
+                    <label for="targetFile">Upload Target Coordinates (CSV):</label>
+                    <input type="file" id="targetFile" name="target_file" accept=".csv" required>
+                </div>
+            </div>
+            <div class="footer">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
+    {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
+</body>
+</html>
