@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import pandas as pd
-
+from .tlbo_algorithm import run_tlbo
 # Create your views here.
 
 def index(request):
@@ -13,47 +13,39 @@ def index(request):
 def process_tlbo_form(request):
     
     if request.method == "POST":
-        input_values = [
-            request.POST.get("grid_size"),
-            request.POST.get("sensor_radius"),
-            request.POST.get("num_sensors"),
-            request.POST.get("num_targets"),
-            request.POST.get("initial_power"),
-            request.POST.get("qj_coverage"),
-            request.POST.get("energy_rate"),
-        ]
+        input_values = {
+            "grid_size": int(request.POST.get("grid_size")),
+            "sensor_radius": int(request.POST.get("sensor_radius")),
+            "num_sensors": int(request.POST.get("num_sensors")),
+            "num_targets": int(request.POST.get("num_targets")),
+            "initial_power": int(request.POST.get("initial_power")),
+            "qj_coverage": int(request.POST.get("qj_coverage")),
+            "energy_rate": int(request.POST.get("energy_rate")),
+        }
 
         target_file = request.FILES.get("target_file")
         target_data = []
 
         if target_file:
-            # Save file to media directory
-            file_path = f"{settings.MEDIA_ROOT}/{target_file.name}"
-            with open(file_path, "wb+") as destination:
-                for chunk in target_file.chunks():
-                    destination.write(chunk)
-
-            # Read the saved CSV file
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(target_file)
             target_data = df.values.tolist()
-            input_values.append(target_data)
+            input_values["target_coordinates"] = target_data
+
+
+        run_tlbo(input_values)
         
-
-        print("Received Form Inputs:")
-        labels = [
-            "Grid Size", "Sensor Radius", "Number of Sensors", "Number of Targets",
-            "Initial Power", "Qj Coverage", "Energy Consumption Rate"
-        ]
+        return redirect("results")
         
-        for label, value in zip(labels, input_values[:7]):
-            print(f"{label}: {value}")
+    return render(request, "input_form.html")
 
-        # Print CSV file data
-        if target_data:
-            print("\nTarget File Data:")
-            for row in target_data:
-                print(row)
+def results(request):
+    # Paths to generated images
+    random_image = "./static/images/random_sensor_plot.png"
+    optimal_image = "./static/images/optimal_sensor_plot.png"
+    without_idle_image = "./static/images/removed_idle_sensor_plot.png"
 
-        return HttpResponse("Form submitted successfully. Check server logs for input values.")
-
-    return render(request, "input_form.html") 
+    return render(request, "results.html", {
+        "random_image": random_image,
+        "optimal_image": optimal_image,
+        "without_idle_image": without_idle_image
+    })

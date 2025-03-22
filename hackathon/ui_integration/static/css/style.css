@@ -1,0 +1,90 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Increase the container size */
+.container {
+    background: white;
+    max-width: 1400px; /* Increased width */
+    margin: 50px auto;
+    padding: 40px; /* Increased padding */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Increase heading size */
+h2 {
+    color: #333;
+    font-size: 32px; /* Increased size */
+}
+
+/* FLEXBOX: Arrange images horizontally */
+.image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px; /* Increased spacing */
+    padding: 50px;
+    max-width: 1400px; /* Ensure images fit */
+    margin: 0 auto;
+}
+
+/* Increase image container size */
+.image-container {
+    width: 33%; /* Adjust width for 3 images */
+    text-align: center;
+}
+
+/* Increase image sizes */
+.image-container img {
+    width: 100%; /* Use full container width */
+    max-width: 600px; /* Larger images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Increase text (h3) size */
+.image-container h3 {
+    font-size: 26px; /* Bigger font size */
+    margin-bottom: 15px;
+}
+
+/* Run Again button styling */
+.btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design - Stack images vertically on smaller screens */
+@media (max-width: 1024px) {
+    .image-wrapper {
+        flex-direction: column;
+        gap: 30px;
+        max-width: 100%;
+    }
+
+    .image-container {
+        width: 90%;
+    }
+
+    .image-container img {
+        max-width: 100%;
+    }
+}

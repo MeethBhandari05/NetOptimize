@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('submit_tlbo/', process_tlbo_form, name='submit_tlbo'),
+    path('results/', results, name="results"),
 ]
 
 

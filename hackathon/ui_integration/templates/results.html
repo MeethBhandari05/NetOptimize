@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Deployment Results</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Sensor Deployment Results</h2>
+
+        <div class="image-wrapper">
+            <div class="image-container">
+                <h3>Random Sensor Deployment</h3>
+                <img src="{% static 'images/random_sensor_plot.png' %}" alt="Random Deployment">
+            </div>
+
+            <div class="image-container">
+                <h3>Optimized Sensor Deployment</h3>
+                <img src="{% static 'images/optimal_sensor_plot.png' %}" alt="Optimal Deployment">
+            </div>
+
+            <div class="image-container">
+                <h3>Without Idle Sensors</h3>
+                <img src="{% static 'images/removed_idle_sensor_plot.png' %}" alt="Optimal Deployment">
+            </div>
+        </div>
+
+        <a href="{% url 'index' %}" class="btn">Run Again</a>
+    </div>
+</body>
+</html>
